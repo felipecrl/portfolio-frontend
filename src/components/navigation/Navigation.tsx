@@ -37,7 +37,25 @@ export function Navigation() {
 
   const scrollTo = (href: string) => {
     const id = href.replace("#", "");
-    document.getElementById(id)?.scrollIntoView({ behavior: "smooth" });
+    if (id === "hero") {
+      window.scrollTo({ top: 0, behavior: "smooth" });
+      setMobileOpen(false);
+      return;
+    }
+
+    const section = document.getElementById(id);
+    if (!section) {
+      setMobileOpen(false);
+      return;
+    }
+
+    const intro = section.querySelector("p");
+    const heading = section.querySelector("h2");
+    const target = intro ?? heading ?? section;
+    const navOffset = 88;
+    const top = Math.max(0, target.getBoundingClientRect().top + window.scrollY - navOffset);
+
+    window.scrollTo({ top, behavior: "smooth" });
     setMobileOpen(false);
   };
 
@@ -46,7 +64,7 @@ export function Navigation() {
     setTheme(nextTheme);
     document.documentElement.classList.remove("light", "dark");
     document.documentElement.classList.add(nextTheme);
-    window.localStorage.setItem(THEME_KEY, nextTheme);
+    window.sessionStorage.setItem(THEME_KEY, nextTheme);
   };
 
   return (
@@ -59,7 +77,7 @@ export function Navigation() {
       ].join(" ")}
     >
       <nav className="max-w-6xl mx-auto px-6 flex items-center justify-between h-16">
-        <button onClick={() => scrollTo("#hero")} className="group flex items-center gap-2">
+        <button onClick={() => scrollTo("#hero")} className="group flex items-center gap-2 rounded-md focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-purple-500/60 focus-visible:ring-offset-2 focus-visible:ring-offset-background">
           <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-gradient-to-br from-purple-500 to-purple-600">
               <Code2 size={16} color="white" />
           </div>
@@ -68,7 +86,7 @@ export function Navigation() {
           </span>
         </button>
 
-        <ul className="hidden md:flex items-center gap-8">
+        <ul className="hidden lg:flex items-center gap-8">
           {navLinks.map((link) => {
             const id = link.href.replace("#", "");
             const isActive = activeSection === id;
@@ -79,6 +97,7 @@ export function Navigation() {
                   className={[
                     "group relative text-sm tracking-wide transition-colors hover:text-purple-500",
                     isActive ? "text-purple-500" : "text-slate-600 dark:text-slate-400",
+                    "rounded-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-purple-500/60 focus-visible:ring-offset-2 focus-visible:ring-offset-background",
                   ].join(" ")}
                 >
                   {link.label}
@@ -94,55 +113,65 @@ export function Navigation() {
           })}
         </ul>
 
-        <div className="hidden items-center gap-2 md:flex">
+        <div className="hidden items-center gap-2 lg:flex">
           <button
             onClick={toggleTheme}
             aria-label={theme === "dark" ? "Ativar tema claro" : "Ativar tema escuro"}
-            className="flex h-9 w-9 items-center justify-center rounded-lg border border-purple-500/50 text-purple-500 transition-colors hover:bg-purple-500/10"
+            className="flex h-9 w-9 items-center justify-center rounded-lg border border-purple-500/50 text-purple-500 transition-colors hover:bg-purple-500/10 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-purple-500/60 focus-visible:ring-offset-2 focus-visible:ring-offset-background"
           >
             {theme === "dark" ? <Sun size={16} /> : <Moon size={16} />}
           </button>
 
           <a
-            href="https://github.com/felipecoelho"
+            href="https://github.com/felipecrl"
             target="_blank"
             rel="noopener noreferrer"
-            className="items-center gap-2 rounded-lg border border-purple-500/50 px-4 py-1.5 text-sm text-purple-500 transition-colors hover:bg-purple-500/10 md:flex"
+            className="items-center gap-2 rounded-lg border border-purple-500/50 px-4 py-1.5 text-sm text-purple-500 transition-colors hover:bg-purple-500/10 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-purple-500/60 focus-visible:ring-offset-2 focus-visible:ring-offset-background md:flex"
           >
             GitHub
           </a>
         </div>
 
-        <button
-          className="text-slate-600 dark:text-slate-400 md:hidden"
-          onClick={() => setMobileOpen(!mobileOpen)}
-          aria-label={mobileOpen ? "Fechar menu" : "Abrir menu"}
-        >
-          {mobileOpen ? <X size={22} /> : <Menu size={22} />}
-        </button>
-      </nav>
-
-      {mobileOpen && (
-        <div className="flex flex-col gap-4 border-t border-purple-500/20 bg-background/95 px-6 py-6 md:hidden">
+        <div className="flex items-center gap-2 lg:hidden">
           <button
             onClick={toggleTheme}
-            className="flex items-center gap-2 text-left text-sm tracking-wide text-slate-600 dark:text-slate-400 transition-colors hover:text-purple-500"
+            aria-label={theme === "dark" ? "Ativar tema claro" : "Ativar tema escuro"}
+            className="flex h-9 w-9 items-center justify-center rounded-lg border border-purple-500/50 text-purple-500 transition-colors hover:bg-purple-500/10 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-purple-500/60 focus-visible:ring-offset-2 focus-visible:ring-offset-background"
           >
             {theme === "dark" ? <Sun size={16} /> : <Moon size={16} />}
-            {theme === "dark" ? "Tema Claro" : "Tema Escuro"}
           </button>
 
+          <button
+            className="text-slate-600 dark:text-slate-400 rounded-md focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-purple-500/60 focus-visible:ring-offset-2 focus-visible:ring-offset-background"
+            onClick={() => setMobileOpen(!mobileOpen)}
+            aria-label={mobileOpen ? "Fechar menu" : "Abrir menu"}
+          >
+            {mobileOpen ? <X size={22} /> : <Menu size={22} />}
+          </button>
+        </div>
+      </nav>
+
+      <div
+        aria-hidden={!mobileOpen}
+        className={[
+          "lg:hidden overflow-hidden transition-all duration-300 ease-out",
+          mobileOpen
+            ? "max-h-80 translate-y-0 opacity-100 border-t border-purple-500/20 bg-background/95 px-6 py-6"
+            : "pointer-events-none max-h-0 -translate-y-2 opacity-0 border-t border-transparent bg-background/95 px-6 py-0",
+        ].join(" ")}
+      >
+        <div className="grid grid-cols-2 gap-4 md:flex md:flex-row md:flex-nowrap md:items-center md:gap-6 md:overflow-x-auto md:whitespace-nowrap">
           {navLinks.map((link) => (
             <button
               key={link.href}
               onClick={() => scrollTo(link.href)}
-              className="text-left text-sm tracking-wide text-slate-600 dark:text-slate-400 transition-colors hover:text-purple-500"
+              className="text-left text-sm tracking-wide text-slate-600 dark:text-slate-400 transition-colors hover:text-purple-500 rounded-md focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-purple-500/60 focus-visible:ring-offset-2 focus-visible:ring-offset-background md:shrink-0"
             >
               {link.label}
             </button>
           ))}
         </div>
-      )}
+      </div>
     </header>
   );
 }

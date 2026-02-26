@@ -38,16 +38,16 @@ export function Contact() {
       <div className="-mt-1 mx-auto mb-24 h-px max-w-6xl bg-gradient-to-r from-transparent via-purple-500/30 to-transparent" />
 
       <div className="mx-auto max-w-6xl">
-        <div className="mb-14 text-center">
+        <div className="mb-14 text-left">
           <p className="mb-3 text-xs uppercase tracking-widest text-purple-500">{"// contato"}</p>
           <h2 className="text-[clamp(1.8rem,4vw,2.8rem)] leading-tight text-slate-900 dark:text-slate-100">Vamos Conversar</h2>
-          <p className="mx-auto mt-3 max-w-lg text-slate-600 dark:text-slate-500">
+          <p className="mt-3 max-w-lg text-slate-600 dark:text-slate-500">
             Seja para um projeto, uma colaboração ou só para trocar uma ideia — estou sempre aberto.
           </p>
         </div>
 
         <div className="grid grid-cols-1 gap-8 lg:grid-cols-5">
-          <div className="space-y-5 lg:col-span-2">
+          <div className="flex h-full flex-col gap-5 lg:col-span-2">
             <div className="rounded-xl border border-purple-500/25 bg-gradient-to-br from-purple-500/15 to-purple-600/10 p-6">
               <h3 className="mb-2 text-base text-slate-800 dark:text-slate-200">Currículo</h3>
               <p className="mb-5 text-xs leading-relaxed text-slate-600 dark:text-slate-500">
@@ -63,16 +63,16 @@ export function Contact() {
               </a>
             </div>
 
-            <div className="rounded-xl border border-slate-200/80 bg-slate-50/80 p-6 dark:border-white/10 dark:bg-white/5">
+            <div className="flex flex-1 flex-col rounded-xl border border-slate-200/80 bg-slate-50/80 p-6 dark:border-white/10 dark:bg-white/5">
               <h3 className="mb-4 text-base text-slate-800 dark:text-slate-200">Redes Sociais</h3>
-              <div className="space-y-3">
+              <div className="flex flex-1 flex-col gap-3">
                 {socialLinks.map((social) => (
                   <a
                     key={social.label}
                     href={social.href}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="group flex items-center gap-3 rounded-lg border border-slate-200/80 bg-white p-3 transition-colors hover:border-purple-500/30 hover:bg-purple-500/5 dark:border-white/10 dark:bg-white/5"
+                    className="group flex flex-1 items-center gap-3 rounded-lg border border-slate-200/80 bg-white px-3 py-4 transition-colors hover:border-purple-500/30 hover:bg-purple-500/5 dark:border-white/10 dark:bg-white/5"
                   >
                     <social.icon size={16} className="shrink-0 text-slate-600 transition-colors group-hover:text-purple-500 dark:text-slate-500" />
                     <div className="min-w-0">
@@ -114,11 +114,11 @@ export function Contact() {
                       autoComplete="name"
                       placeholder="Seu nome"
                       className={[
-                        "w-full rounded-xl border bg-white px-4 py-3 text-sm text-slate-800 outline-none transition-colors placeholder:text-slate-400 focus:border-purple-500/50 dark:bg-white/10 dark:text-slate-200 dark:placeholder:text-slate-700",
-                        errors.name ? "border-rose-500/60" : "border-slate-300 dark:border-white/10",
+                        "w-full rounded-xl border bg-white px-4 py-3 text-sm text-slate-800 outline-none transition-colors placeholder:text-slate-400 placeholder:opacity-100 focus:border-purple-500/50 dark:bg-white/10 dark:text-slate-200 dark:placeholder:text-slate-400",
+                        errors.name ? "border-rose-500/35 dark:border-rose-400/45" : "border-slate-300 dark:border-white/10",
                       ].join(" ")}
                     />
-                    {errors.name && <p className="mt-1 text-xs text-rose-400">{errors.name.message}</p>}
+                    {errors.name && <p className="mt-1 text-xs text-rose-500 dark:text-rose-300">{errors.name.message}</p>}
                   </div>
                   <div>
                     <label className="mb-2 block text-xs uppercase tracking-wider text-slate-600 dark:text-slate-500">E-mail</label>
@@ -129,11 +129,11 @@ export function Contact() {
                       autoComplete="email"
                       placeholder="seu@email.com"
                       className={[
-                        "w-full rounded-xl border bg-white px-4 py-3 text-sm text-slate-800 outline-none transition-colors placeholder:text-slate-400 focus:border-purple-500/50 dark:bg-white/10 dark:text-slate-200 dark:placeholder:text-slate-700",
-                        errors.email ? "border-rose-500/60" : "border-slate-300 dark:border-white/10",
+                        "w-full rounded-xl border bg-white px-4 py-3 text-sm text-slate-800 outline-none transition-colors placeholder:text-slate-400 placeholder:opacity-100 focus:border-purple-500/50 dark:bg-white/10 dark:text-slate-200 dark:placeholder:text-slate-400",
+                        errors.email ? "border-rose-500/35 dark:border-rose-400/45" : "border-slate-300 dark:border-white/10",
                       ].join(" ")}
                     />
-                    {errors.email && <p className="mt-1 text-xs text-rose-400">{errors.email.message}</p>}
+                    {errors.email && <p className="mt-1 text-xs text-rose-500 dark:text-rose-300">{errors.email.message}</p>}
                   </div>
                 </div>
 
@@ -144,11 +144,11 @@ export function Contact() {
                     maxLength={120}
                     placeholder="Como posso ajudar?"
                     className={[
-                      "w-full rounded-xl border bg-white px-4 py-3 text-sm text-slate-800 outline-none transition-colors placeholder:text-slate-400 focus:border-purple-500/50 dark:bg-white/10 dark:text-slate-200 dark:placeholder:text-slate-700",
-                      errors.subject ? "border-rose-500/60" : "border-slate-300 dark:border-white/10",
+                      "w-full rounded-xl border bg-white px-4 py-3 text-sm text-slate-800 outline-none transition-colors placeholder:text-slate-400 placeholder:opacity-100 focus:border-purple-500/50 dark:bg-white/10 dark:text-slate-200 dark:placeholder:text-slate-400",
+                      errors.subject ? "border-rose-500/35 dark:border-rose-400/45" : "border-slate-300 dark:border-white/10",
                     ].join(" ")}
                   />
-                  {errors.subject && <p className="mt-1 text-xs text-rose-400">{errors.subject.message}</p>}
+                  {errors.subject && <p className="mt-1 text-xs text-rose-500 dark:text-rose-300">{errors.subject.message}</p>}
                 </div>
 
                 <div>
@@ -159,11 +159,11 @@ export function Contact() {
                     maxLength={1500}
                     placeholder="Conte mais sobre seu projeto ou ideia..."
                     className={[
-                      "w-full resize-none rounded-xl border bg-white px-4 py-3 text-sm text-slate-800 outline-none transition-colors placeholder:text-slate-400 focus:border-purple-500/50 dark:bg-white/10 dark:text-slate-200 dark:placeholder:text-slate-700",
-                      errors.message ? "border-rose-500/60" : "border-slate-300 dark:border-white/10",
+                      "w-full resize-none rounded-xl border bg-white px-4 py-3 text-sm text-slate-800 outline-none transition-colors placeholder:text-slate-400 placeholder:opacity-100 focus:border-purple-500/50 dark:bg-white/10 dark:text-slate-200 dark:placeholder:text-slate-400",
+                      errors.message ? "border-rose-500/35 dark:border-rose-400/45" : "border-slate-300 dark:border-white/10",
                     ].join(" ")}
                   />
-                  {errors.message && <p className="mt-1 text-xs text-rose-400">{errors.message.message}</p>}
+                  {errors.message && <p className="mt-1 text-xs text-rose-500 dark:text-rose-300">{errors.message.message}</p>}
                 </div>
 
                 <button

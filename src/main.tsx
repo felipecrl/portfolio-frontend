@@ -4,12 +4,12 @@ import App from "@/App";
 import "@/styles/index.css";
 
 const THEME_KEY = "portfolio-theme";
-
-const storedTheme = window.localStorage.getItem(THEME_KEY);
+const storedTheme = window.sessionStorage.getItem(THEME_KEY);
 const initialTheme = storedTheme === "light" ? "light" : "dark";
 
 document.documentElement.classList.remove("light", "dark");
 document.documentElement.classList.add(initialTheme);
+window.sessionStorage.setItem(THEME_KEY, initialTheme);
 
 const rootElement = document.getElementById("root");
 

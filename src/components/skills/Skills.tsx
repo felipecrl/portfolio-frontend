@@ -1,5 +1,5 @@
-import { useState } from "react";
-import { extraTechs, skillCategories, skillsSummary, widthClassByLevel } from "@/data/skills";
+import { useEffect, useLayoutEffect, useRef, useState } from "react";
+import { extraTechs, skillCategories, skillsSummary } from "@/data/skills";
 
 const getLevelLabel = (level: number) => {
   if (level >= 90) {
@@ -36,7 +36,37 @@ const getLevelLabel = (level: number) => {
 
 export function Skills() {
   const [activeTab, setActiveTab] = useState("frontend");
+  const [animateBars, setAnimateBars] = useState(false);
+  const [isInView, setIsInView] = useState(false);
+  const skillsCardRef = useRef<HTMLDivElement>(null);
   const active = skillCategories.find((c) => c.id === activeTab)!;
+
+  useEffect(() => {
+    const node = skillsCardRef.current;
+    if (!node) return;
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        const [entry] = entries;
+        setIsInView(entry.isIntersecting);
+      },
+      { threshold: 0.35 },
+    );
+
+    observer.observe(node);
+    return () => observer.disconnect();
+  }, []);
+
+  useLayoutEffect(() => {
+    if (!isInView) {
+      setAnimateBars(false);
+      return;
+    }
+
+    setAnimateBars(false);
+    const frame = window.requestAnimationFrame(() => setAnimateBars(true));
+    return () => window.cancelAnimationFrame(frame);
+  }, [activeTab, isInView]);
 
   return (
     <section id="skills" className="bg-background px-6 py-24">
@@ -89,7 +119,7 @@ export function Skills() {
             </div>
           </div>
 
-          <div className="rounded-xl border border-slate-200/80 bg-slate-50/80 p-6 md:p-8 lg:col-span-2 dark:border-white/10 dark:bg-white/5">
+          <div ref={skillsCardRef} className="rounded-xl border border-slate-200/80 bg-slate-50/80 p-6 md:p-8 lg:col-span-2 dark:border-white/10 dark:bg-white/5">
             <div className="flex items-center gap-3 mb-8">
               <span className="text-2xl">{active.icon}</span>
               <div>
@@ -101,7 +131,7 @@ export function Skills() {
             </div>
 
             <div className="space-y-6">
-              {active.skills.map((skill) => {
+              {active.skills.map((skill, index) => {
                 const level = getLevelLabel(skill.level);
                 return (
                   <div key={skill.name}>
@@ -128,9 +158,12 @@ export function Skills() {
                     </div>
                     <div className="h-1.5 overflow-hidden rounded-full bg-slate-200 dark:bg-white/10">
                       <div
+                        style={{
+                          width: `${animateBars ? Math.min(100, Math.max(0, skill.level)) : 0}%`,
+                          transitionDelay: `${index * 80}ms`,
+                        }}
                         className={[
-                          "h-full rounded-full bg-gradient-to-r transition-all duration-700",
-                          widthClassByLevel[skill.level],
+                          "h-full rounded-full bg-gradient-to-r transition-[width] duration-700 ease-out",
                           level.barClass,
                         ].join(" ")}
                       />

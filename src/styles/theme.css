@@ -138,4 +138,13 @@
   [aria-disabled="true"] {
     @apply cursor-not-allowed;
   }
+
+  a:focus-visible,
+  button:focus-visible,
+  input:focus-visible,
+  textarea:focus-visible,
+  select:focus-visible {
+    outline: 2px solid rgba(168, 85, 247, 0.65);
+    outline-offset: 2px;
+  }
 }

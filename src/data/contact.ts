@@ -1,4 +1,4 @@
-import { Github, Linkedin, Mail, Twitter } from "lucide-react";
+import { Github, Linkedin, Mail } from "lucide-react";
 
 import type { SocialLink } from "@/types/content";
 
@@ -6,25 +6,19 @@ export const socialLinks: SocialLink[] = [
   {
     icon: Github,
     label: "GitHub",
-    href: "https://github.com/felipecoelho",
-    handle: "@felipecoelho",
+    href: "https://github.com/felipecrl",
+    handle: "@felipecrl",
   },
   {
     icon: Linkedin,
     label: "LinkedIn",
-    href: "https://linkedin.com/in/felipecoelho",
-    handle: "Felipe Coelho",
-  },
-  {
-    icon: Twitter,
-    label: "Twitter / X",
-    href: "https://twitter.com/felipecoelho",
-    handle: "@felipecoelho_",
+    href: "https://www.linkedin.com/in/felipecoelho1/",
+    handle: "linkedin.com/in/felipecoelho1",
   },
   {
     icon: Mail,
     label: "E-mail",
-    href: "mailto:contato@felipecoelho.dev",
-    handle: "contato@felipecoelho.dev",
+    href: "mailto:contato@felipecoelho.dev.br",
+    handle: "contato@felipecoelho.dev.br",
   },
 ];

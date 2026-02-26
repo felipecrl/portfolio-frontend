@@ -54,7 +54,7 @@ export function Projects() {
                   alt={project.title}
                   className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
                 />
-                <div className="absolute inset-0 bg-gradient-to-t from-slate-100/95 to-transparent dark:from-[#080808]/90" />
+                <div className="absolute inset-0 bg-gradient-to-t from-slate-900/30 to-transparent dark:from-[#080808]/90" />
                 {project.featured && (
                   <span className="absolute right-3 top-3 rounded-full border border-purple-500/40 bg-purple-500/20 px-2 py-0.5 text-xs text-purple-500">
                     Destaque
@@ -114,7 +114,7 @@ export function Projects() {
 
         <div className="text-center mt-10">
           <a
-            href="https://github.com/felipecoelho"
+            href="https://github.com/felipecrl"
             target="_blank"
             rel="noopener noreferrer"
             className="inline-flex items-center gap-2 rounded-xl border border-purple-500/30 px-6 py-3 text-sm text-purple-500 transition-colors hover:bg-purple-500/10"

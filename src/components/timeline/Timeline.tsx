@@ -177,7 +177,7 @@ export function Timeline() {
     <section id="timeline" className="bg-background px-6 py-24">
       <div className="-mt-1 mx-auto mb-24 h-px max-w-6xl bg-gradient-to-r from-transparent via-purple-500/30 to-transparent" />
 
-      <div className="mx-auto max-w-4xl">
+      <div className="mx-auto max-w-6xl">
         <div className="mb-14">
           <p className="mb-3 text-xs uppercase tracking-widest text-purple-500">{"// trajetória"}</p>
           <h2 className="text-[clamp(1.8rem,4vw,2.8rem)] leading-tight text-slate-900 dark:text-slate-100">Histórico Profissional</h2>

@@ -34,6 +34,9 @@ export function Hero() {
       const w = canvas.width;
       const h = canvas.height;
       ctx.clearRect(0, 0, w, h);
+      const isLightTheme = document.documentElement.classList.contains("light");
+      const particleColor = isLightTheme ? "124,58,237" : "168,85,247";
+      const strokeAlphaBase = isLightTheme ? 0.28 : 0.12;
 
       for (let i = 0; i < particles.length; i++) {
         const p = particles[i];
@@ -44,7 +47,7 @@ export function Hero() {
 
         ctx.beginPath();
         ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
-        ctx.fillStyle = `rgba(168,85,247,${p.alpha})`;
+  ctx.fillStyle = `rgba(${particleColor},${Math.min(1, p.alpha * (isLightTheme ? 1.9 : 1))})`;
         ctx.fill();
 
         for (let j = i + 1; j < particles.length; j++) {
@@ -56,7 +59,7 @@ export function Hero() {
             ctx.beginPath();
             ctx.moveTo(p.x, p.y);
             ctx.lineTo(p2.x, p2.y);
-            ctx.strokeStyle = `rgba(168,85,247,${0.12 * (1 - dist / 130)})`;
+            ctx.strokeStyle = `rgba(${particleColor},${strokeAlphaBase * (1 - dist / 130)})`;
             ctx.lineWidth = 0.6;
             ctx.stroke();
           }
@@ -89,7 +92,7 @@ export function Hero() {
   return (
     <section id="hero" className="relative flex min-h-screen items-center justify-center overflow-hidden bg-background">
       <canvas ref={canvasRef} className="pointer-events-none absolute inset-0 h-full w-full" />
-      <div className="pointer-events-none absolute left-1/2 top-1/2 h-[600px] w-[600px] -translate-x-1/2 -translate-y-1/2 bg-[radial-gradient(circle,rgba(168,85,247,0.12)_0%,transparent_70%)]" />
+      <div className="pointer-events-none absolute left-1/2 top-1/2 h-[600px] w-[600px] -translate-x-1/2 -translate-y-1/2 opacity-0 dark:opacity-100 dark:bg-[radial-gradient(circle,rgba(168,85,247,0.12)_0%,transparent_70%)]" />
 
       <div className="relative z-10 max-w-4xl mx-auto px-6 text-center">
         <div className="flex justify-center mb-8">
@@ -117,7 +120,7 @@ export function Hero() {
 
         <div className="flex flex-wrap items-center justify-center gap-4 mb-16">
           <a
-            href="https://github.com/felipecoelho"
+            href="https://github.com/felipecrl"
             target="_blank"
             rel="noopener noreferrer"
             className="flex items-center gap-2 rounded-xl bg-gradient-to-br from-purple-500 to-purple-600 px-6 py-3 text-sm tracking-wide text-white shadow-[0_0_24px_rgba(168,85,247,0.4)] transition-opacity hover:opacity-90"
