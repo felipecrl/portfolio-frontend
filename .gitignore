@@ -1,0 +1,29 @@
+node_modules
+dist
+dist-ssr
+.vite
+
+# Env files
+.env
+.env.*
+!.env.example
+
+# Logs
+npm-debug.log*
+pnpm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Coverage
+coverage
+*.lcov
+
+# OS/editor
+.DS_Store
+.idea
+.vscode
+*.swp
+*.swo
+
+# Build outputs
+*.tsbuildinfo
