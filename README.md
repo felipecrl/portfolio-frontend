@@ -1,43 +1,43 @@
 # Portfolio
 
-Projeto de portfolio pessoal em React + Vite, com Tailwind e componentes UI (Radix/MUI).
+Portfolio pessoal em React + Vite com arquitetura por componentes, dados desacoplados da UI, TypeScript estrito, lint moderno (ESLint 9 flat config) e Tailwind CSS 4.
 
 ## Requisitos
 
-- Node.js 18+ (recomendado)
-- pnpm (ou npm/yarn)
+- Node.js 20 LTS+
+- npm 10+
 
-## Como rodar
+## Instalação
 
 ```bash
-pnpm install
-pnpm dev
+npm install
+npm run dev
 ```
 
-Acesse o app em `http://localhost:5173`.
+Aplicação disponível em `http://localhost:5173`.
 
 ## Scripts
 
-- `pnpm dev`: inicia o servidor de desenvolvimento
-- `pnpm build`: gera o build de producao
-- `pnpm preview`: visualiza o build localmente
-- `pnpm typecheck`: checagem de tipos com TypeScript
-- `pnpm lint`: lint com ESLint
-- `pnpm format`: formatacao com Prettier
+- `npm run dev`: servidor local
+- `npm run build`: build de produção
+- `npm run preview`: preview do build
+- `npm run typecheck`: validação de tipos
+- `npm run lint`: lint com ESLint
+- `npm run format`: formatação com Prettier
 
-## Stack
+## Stack Atual
 
-- React 18 + Vite 6
-- TypeScript
+- React 18 + Vite 7
+- TypeScript 5
 - Tailwind CSS 4
-- Radix UI / MUI
+- Interface enxuta com componentes próprios da aplicação
 
-## Estrutura (principal)
+## Estrutura
 
 ```
 src/
   App.tsx
-  features/
+  components/
     navigation/
     hero/
     projects/
@@ -45,16 +45,22 @@ src/
     timeline/
     blog/
     contact/
-  shared/
-    ui/
-    styles/
+  data/
+  types/
+  styles/
 ```
 
-## Alias
+## Padrões de Qualidade
 
-O alias `@` aponta para `src` (configurado no Vite).
+- Sem estilos inline (`style={{ ... }}`) nos componentes de aplicação.
+- Componentes organizados por responsabilidade em `src/components`.
+- Dados estáticos centralizados em `src/data`.
+- Tipagens compartilhadas centralizadas em `src/types`.
+- Lint + typecheck obrigatórios antes de build.
+- Dependências de runtime mínimas para reduzir superfície de ataque.
 
-## Observacoes
+## Segurança
 
-- O layout principal e montado em `App.tsx`.
-- Os blocos da pagina ficam em `src/features/*`.
+- Links externos com `rel="noopener noreferrer"`.
+- Auditoria de dependências via `npm audit --omit=dev`.
+- Pacotes não utilizados removidos do projeto.
