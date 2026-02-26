@@ -19,29 +19,6 @@ export default defineConfig({
     cssCodeSplit: true,
     sourcemap: false,
     chunkSizeWarningLimit: 650,
-    rollupOptions: {
-      output: {
-        manualChunks(id) {
-          if (!id.includes('node_modules')) {
-            return undefined
-          }
-
-          if (id.includes('/react/') || id.includes('/react-dom/')) {
-            return 'vendor-react'
-          }
-
-          if (id.includes('/@radix-ui/')) {
-            return 'vendor-radix'
-          }
-
-          if (id.includes('/lucide-react/')) {
-            return 'vendor-icons'
-          }
-
-          return 'vendor-misc'
-        },
-      },
-    },
   },
 
   assetsInclude: ['**/*.svg', '**/*.csv'],
